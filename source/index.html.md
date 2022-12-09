@@ -14,43 +14,24 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Lua variant of the Roblox Game, Gmod.
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the official documentation on the "Lua variant" called GLua which is for my game called, Gmod on Roblox which is similar to Garry's Mod. GLua is made to act as a scripting source for addons created in my Roblox game.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# New built-in-functions
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+> a list of the few new built-in-functions
 
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+```lua
+ local table = {1, 2, 3}
+ 
+ foreach(table, function(i, v) -- loops through the table
+  print(v)
+ end)
+ 
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
