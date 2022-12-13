@@ -34,187 +34,108 @@ Welcome to the official documentation on the "Lua variant" called GLua which is 
  
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```lua
+ local ModuleService = GetModuleService() -- loads the ModuleService which can be used to act as module scripts
 ```
 
-```python
-import kittn
+GLua has only a couple of built-in-functions such as `foreach`, `GetModuleService`, `LoadScriptsEnv`, `LoadCmdLineService`, and `LoadConsoleService`
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+# Functions, globals, and Services
+
+## Hook
+
+Hook is basically an easy way of doing events and it supports a few custom events
+Hook is a global with only one function which is `Add`
+
+```lua
+local HookClass = Hook.Add("OnSpawn", function(player) -- when player is added to the game and returns a hook object class
+     print(player.Name)
+end)
+
+print(HookClass.value, HookClass.eventtype) -- SUCCESSFUL, OnSpawn
 ```
 
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
+## ModuleService
 
-```javascript
-const kittn = require('kittn');
+The ModuleService is a roundabout for module scripts because modulescripts arent supported in my game it currently has a few functions.
+It can be used to communicate through different scripts it can be accessed by using the function `GetModuleService()`
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
+### ModuleService:Add(modulename)
+Returns false if the modulename is already taken
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+modulename | Creates a new module which can have functions added to it make sure the name is unique or else it wont be created
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
+### ModuleService:Get(modulename)
+Returns nil if the module was not found
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+modulename | Similar to requiring an actual module and it is used to get the module
 
+### ModuleService:AddFunction(modulename, functionName, func)
+
+Parameter | Description
+--------- | -----------
+modulename | The module in which the function will be put inside of
+functionName | The name of the function which will go inside the module
+func | The function that is put inside the module
+
+```lua
+local ModuleService = GetModuleService() -- Loads the ModuleService
+
+ModuleService:Add("print_hi") -- Creates the module
+
+ModuleService:AddFunction("print_hi", function() -- Adds the function
+     print("hi")
+end, "PrintHi")
+
+local module = ModuleService:Get()
+
+module.PrintHi() -- outputs to hi
+```
+
+## LoadScriptEnv
+It allows you to use the global `script` which is where the script is located although advise this instance doesn't inherit anything from script so you cant disable it.
+
+## ConsoleService
+The Service responsible for logging output in the console which can be accessed by pressing \ (back slash)
+
+### ConsoleService:Add(text)
+
+Parameter | Description
+--------- | -----------
+text | Adds white text to the console
+
+### ConsoleService:Warn(text)
+
+Parameter | Description
+--------- | -----------
+text | Adds a warning to the console which is orange
+
+### ConsoleService:Error(text)
+
+Parameter | Description
+--------- | -----------
+text | Adds an error to the console which is red that begins with "Error: "
+
+### ConsoleService:Error2(text)
+
+Parameter | Description
+--------- | -----------
+text | Adds an error to the console which is red that doesn't begin with "Error: " but instead begins with nothing and is only your text
+
+### ConsoleService:ColorFromRGB(r, g, b)
+
+Adds text to the console with the color depending on the rgb
+
+### ConsoleService:Error(hex)
+
+Parameter | Description
+--------- | -----------
+hex | Adds text to the console with the corrosponding hex value (string)
+
+## CmdLineService (Server Only)
+
+Currently Inaccessible 
