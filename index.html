@@ -319,16 +319,22 @@
             <a href="#new-built-in-functions" class="toc-h1 toc-link" data-title="New built-in-functions">New built-in-functions</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#functions-globals-and-services" class="toc-h1 toc-link" data-title="Functions, globals, and Services">Functions, globals, and Services</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#hook" class="toc-h2 toc-link" data-title="Hook">Hook</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#moduleservice" class="toc-h2 toc-link" data-title="ModuleService">ModuleService</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#loadscriptenv" class="toc-h2 toc-link" data-title="LoadScriptEnv">LoadScriptEnv</a>
+                  </li>
+                  <li>
+                    <a href="#consoleservice" class="toc-h2 toc-link" data-title="ConsoleService">ConsoleService</a>
+                  </li>
+                  <li>
+                    <a href="#cmdlineservice-server-only" class="toc-h2 toc-link" data-title="CmdLineService (Server Only)">CmdLineService (Server Only)</a>
                   </li>
               </ul>
           </li>
@@ -349,113 +355,23 @@
   <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
  <span class="k">end</span><span class="p">)</span>
 
+</code></pre></div><div class="highlight"><pre class="highlight lua tab-lua"><code> <span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- loads the ModuleService which can be used to act as module scripts</span>
 </code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>GLua has only a couple of built-in-functions such as <code>foreach</code>, <code>GetModuleService</code>, <code>LoadScriptsEnv</code>, <code>LoadCmdLineService</code>, and <code>LoadConsoleService</code></p>
+<h1 id='functions-globals-and-services'>Functions, globals, and Services</h1><h2 id='hook'>Hook</h2>
+<p>Hook is basically an easy way of doing events and it supports a few custom events
+Hook is a global with only one function which is <code>Add</code></p>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="kd">local</span> <span class="n">HookClass</span> <span class="o">=</span> <span class="n">Hook</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">"OnSpawn"</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">player</span><span class="p">)</span> <span class="c1">-- when player is added to the game and returns a hook object class</span>
+     <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<span class="nb">print</span><span class="p">(</span><span class="n">HookClass</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="n">HookClass</span><span class="p">.</span><span class="n">eventtype</span><span class="p">)</span> <span class="c1">-- SUCCESSFUL, OnSpawn</span>
+</code></pre></div><h2 id='moduleservice'>ModuleService</h2>
+<p>The ModuleService is a roundabout for module scripts because modulescripts arent supported in my game it currently has a few functions.
+It can be used to communicate through different scripts it can be accessed by using the function <code>GetModuleService()</code></p>
+<h3 id='moduleservice-add-modulename'>ModuleService:Add(modulename)</h3>
+<p>Returns false if the modulename is already taken</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -463,38 +379,13 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>modulename</td>
+<td>Creates a new module which can have functions added to it make sure the name is unique or else it wont be created</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id='moduleservice-get-modulename'>ModuleService:Get(modulename)</h3>
+<p>Returns nil if the module was not found</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -502,10 +393,109 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>modulename</td>
+<td>Similar to requiring an actual module and it is used to get the module</td>
 </tr>
 </tbody></table>
+<h3 id='moduleservice-addfunction-modulename-functionname-func'>ModuleService:AddFunction(modulename, functionName, func)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>modulename</td>
+<td>The module in which the function will be put inside of</td>
+</tr>
+<tr>
+<td>functionName</td>
+<td>The name of the function which will go inside the module</td>
+</tr>
+<tr>
+<td>func</td>
+<td>The function that is put inside the module</td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- Loads the ModuleService</span>
+
+<span class="n">ModuleService</span><span class="p">:</span><span class="n">Add</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span> <span class="c1">-- Creates the module</span>
+
+<span class="n">ModuleService</span><span class="p">:</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="c1">-- Adds the function</span>
+     <span class="nb">print</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">,</span> <span class="s2">"PrintHi"</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">module</span> <span class="o">=</span> <span class="n">ModuleService</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+
+<span class="n">module</span><span class="p">.</span><span class="n">PrintHi</span><span class="p">()</span> <span class="c1">-- outputs to hi</span>
+</code></pre></div><h2 id='loadscriptenv'>LoadScriptEnv</h2>
+<p>It allows you to use the global <code>script</code> which is where the script is located although advise this instance doesn&#39;t inherit anything from script so you cant disable it.</p>
+<h2 id='consoleservice'>ConsoleService</h2>
+<p>The Service responsible for logging output in the console which can be accessed by pressing \ (back slash)</p>
+<h3 id='consoleservice-add-text'>ConsoleService:Add(text)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>Adds white text to the console</td>
+</tr>
+</tbody></table>
+<h3 id='consoleservice-warn-text'>ConsoleService:Warn(text)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>Adds a warning to the console which is orange</td>
+</tr>
+</tbody></table>
+<h3 id='consoleservice-error-text'>ConsoleService:Error(text)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>Adds an error to the console which is red that begins with &quot;Error: &quot;</td>
+</tr>
+</tbody></table>
+<h3 id='consoleservice-error2-text'>ConsoleService:Error2(text)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>Adds an error to the console which is red that doesn&#39;t begin with &quot;Error: &quot; but instead begins with nothing and is only your text</td>
+</tr>
+</tbody></table>
+<h3 id='consoleservice-colorfromrgb-r-g-b'>ConsoleService:ColorFromRGB(r, g, b)</h3>
+<p>Adds text to the console with the color depending on the rgb</p>
+<h3 id='consoleservice-error-hex'>ConsoleService:Error(hex)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hex</td>
+<td>Adds text to the console with the corrosponding hex value (string)</td>
+</tr>
+</tbody></table>
+<h2 id='cmdlineservice-server-only'>CmdLineService (Server Only)</h2>
+<p>Currently Inaccessible </p>
 
       </div>
       <div class="dark-box">
