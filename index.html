@@ -319,6 +319,32 @@
             <a href="#new-built-in-functions" class="toc-h1 toc-link" data-title="New built-in-functions">New built-in-functions</a>
           </li>
           <li>
+            <a href="#removed-keywords-services-and-globals" class="toc-h1 toc-link" data-title="removed keywords, Services, and globals">removed keywords, Services, and globals</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#require" class="toc-h2 toc-link" data-title="require">require</a>
+                  </li>
+                  <li>
+                    <a href="#getfenv" class="toc-h2 toc-link" data-title="getfenv">getfenv</a>
+                  </li>
+                  <li>
+                    <a href="#setfenv" class="toc-h2 toc-link" data-title="setfenv">setfenv</a>
+                  </li>
+                  <li>
+                    <a href="#replicatedstorage" class="toc-h2 toc-link" data-title="ReplicatedStorage">ReplicatedStorage</a>
+                  </li>
+                  <li>
+                    <a href="#serverscriptstorage" class="toc-h2 toc-link" data-title="ServerScriptStorage">ServerScriptStorage</a>
+                  </li>
+                  <li>
+                    <a href="#_g" class="toc-h2 toc-link" data-title="_G">_G</a>
+                  </li>
+                  <li>
+                    <a href="#loadstring" class="toc-h2 toc-link" data-title="loadstring">loadstring</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#functions-globals-and-services" class="toc-h1 toc-link" data-title="Functions, globals, and Services">Functions, globals, and Services</a>
               <ul class="toc-list-h2">
                   <li>
@@ -358,6 +384,20 @@
 </code></pre></div><div class="highlight"><pre class="highlight lua tab-lua"><code> <span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- loads the ModuleService which can be used to act as module scripts</span>
 </code></pre></div>
 <p>GLua has only a couple of built-in-functions such as <code>foreach</code>, <code>GetModuleService</code>, <code>LoadScriptsEnv</code>, <code>LoadCmdLineService</code>, and <code>LoadConsoleService</code></p>
+<h1 id='removed-keywords-services-and-globals'>removed keywords, Services, and globals</h1><h2 id='require'>require</h2>
+<p>removed for obvious reasons which could be used to destroy the game</p>
+<h2 id='getfenv'>getfenv</h2>
+<p>removed for obvious reasons which could be used to destroy the game</p>
+<h2 id='setfenv'>setfenv</h2>
+<p>removed for obvious reasons which could be used to destroy the game</p>
+<h2 id='replicatedstorage'>ReplicatedStorage</h2>
+<p>removed because it should only be accessed by the core and mostly it is used by <code>require</code></p>
+<h2 id='serverscriptstorage'>ServerScriptStorage</h2>
+<p>removed to protect core scripts</p>
+<h2 id='_g'>_G</h2>
+<p>removed instead use the ModuleService to share info globally</p>
+<h2 id='loadstring'>loadstring</h2>
+<p>removed for obvious reasons which could be used to destroy the game</p>
 <h1 id='functions-globals-and-services'>Functions, globals, and Services</h1><h2 id='hook'>Hook</h2>
 <p>Hook is basically an easy way of doing events and it supports a few custom events
 Hook is a global with only one function which is <code>Add</code></p>
