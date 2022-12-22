@@ -79,8 +79,8 @@ modulename | Similar to requiring an actual module and it is used to get the mod
 Parameter | Description
 --------- | -----------
 modulename | The module in which the function will be put inside of
-functionName | The name of the function which will go inside the module
-func | The function that is put inside the module
+function | The name of the function which will go inside the module
+FunctionName | The function that is put inside the module
 
 ```lua
 local ModuleService = GetModuleService() -- Loads the ModuleService
@@ -91,7 +91,7 @@ ModuleService:AddFunction("print_hi", function() -- Adds the function
      print("hi")
 end, "PrintHi")
 
-local module = ModuleService:Get()
+local module = ModuleService:Get("print_hi")
 
 module.PrintHi() -- outputs to hi
 ```
@@ -136,6 +136,24 @@ Parameter | Description
 --------- | -----------
 hex | Adds text to the console with the corrosponding hex value (string)
 
-## CmdLineService (Server Only)
+## CmdLineService (Client Only)
+The CmdLineService is a RemoteEvent responsible for the command line in the console.
 
-Currently Inaccessible 
+### CmdLineService:FireServer()
+Fires the CmdLineService RemoteEvent.
+
+Parameter | Description
+--------- | -----------
+message | "{Command} {Parameter1} {Parameter2} ect." acts like an admin script
+
+Current Commands are:
+  - kill {parameter : user} - kills the selected user(s)
+  - warn {parameter : string} - makes a warning in the console
+  - error {parameter : string} - makes an error in the console
+  - time {parameter : number} - changes the time of day in lighting
+  - clearaddons - clears all spawned addons
+  - clearprops - clears all spawned props
+  - clearnpcs - clears all spawned npcs
+  - clearentities - clears all spawned entities
+  - clear - clears addons, props, npcs, and entities
+  - adminize {parameter : user} - gives a user admin (host only)
