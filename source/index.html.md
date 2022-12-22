@@ -59,6 +59,7 @@ removed to protect core scripts
 
 ## \_G
 removed instead use the ModuleService to share info globally
+also it is advised not to use \_G in Lua
 
 ## loadstring
 removed for obvious reasons which could be used to destroy the game
