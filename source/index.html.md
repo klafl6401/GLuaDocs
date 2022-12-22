@@ -40,6 +40,29 @@ Welcome to the official documentation on the "Lua variant" called GLua which is 
 
 GLua has only a couple of built-in-functions such as `foreach`, `GetModuleService`, `LoadScriptsEnv`, `LoadCmdLineService`, and `LoadConsoleService`
 
+# removed keywords, Services, and globals
+
+## require
+removed for obvious reasons which could be used to destroy the game
+
+## getfenv
+removed for obvious reasons which could be used to destroy the game
+
+## setfenv
+removed for obvious reasons which could be used to destroy the game
+
+## ReplicatedStorage
+removed because it should only be accessed by the core and mostly it is used by `require`
+
+## ServerScriptStorage
+removed to protect core scripts
+
+## \_G
+removed instead use the ModuleService to share info globally
+
+## loadstring
+removed for obvious reasons which could be used to destroy the game
+
 # Functions, globals, and Services
 
 ## Hook
