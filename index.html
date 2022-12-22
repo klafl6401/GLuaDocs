@@ -334,7 +334,7 @@
                     <a href="#consoleservice" class="toc-h2 toc-link" data-title="ConsoleService">ConsoleService</a>
                   </li>
                   <li>
-                    <a href="#cmdlineservice-server-only" class="toc-h2 toc-link" data-title="CmdLineService (Server Only)">CmdLineService (Server Only)</a>
+                    <a href="#cmdlineservice-client-only" class="toc-h2 toc-link" data-title="CmdLineService (Client Only)">CmdLineService (Client Only)</a>
                   </li>
               </ul>
           </li>
@@ -409,11 +409,11 @@ It can be used to communicate through different scripts it can be accessed by us
 <td>The module in which the function will be put inside of</td>
 </tr>
 <tr>
-<td>functionName</td>
+<td>function</td>
 <td>The name of the function which will go inside the module</td>
 </tr>
 <tr>
-<td>func</td>
+<td>FunctionName</td>
 <td>The function that is put inside the module</td>
 </tr>
 </tbody></table>
@@ -425,7 +425,7 @@ It can be used to communicate through different scripts it can be accessed by us
      <span class="nb">print</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
 <span class="k">end</span><span class="p">,</span> <span class="s2">"PrintHi"</span><span class="p">)</span>
 
-<span class="kd">local</span> <span class="n">module</span> <span class="o">=</span> <span class="n">ModuleService</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">module</span> <span class="o">=</span> <span class="n">ModuleService</span><span class="p">:</span><span class="n">Get</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span>
 
 <span class="n">module</span><span class="p">.</span><span class="n">PrintHi</span><span class="p">()</span> <span class="c1">-- outputs to hi</span>
 </code></pre></div><h2 id='loadscriptenv'>LoadScriptEnv</h2>
@@ -494,8 +494,34 @@ It can be used to communicate through different scripts it can be accessed by us
 <td>Adds text to the console with the corrosponding hex value (string)</td>
 </tr>
 </tbody></table>
-<h2 id='cmdlineservice-server-only'>CmdLineService (Server Only)</h2>
-<p>Currently Inaccessible </p>
+<h2 id='cmdlineservice-client-only'>CmdLineService (Client Only)</h2>
+<p>The CmdLineService is a RemoteEvent responsible for the command line in the console.</p>
+<h3 id='cmdlineservice-fireserver'>CmdLineService:FireServer()</h3>
+<p>Fires the CmdLineService RemoteEvent.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>&quot;{Command} {Parameter1} {Parameter2} ect.&quot; acts like an admin script</td>
+</tr>
+</tbody></table>
+
+<p>Current Commands are:
+  - kill {parameter : user} - kills the selected user(s)
+  - warn {parameter : string} - makes a warning in the console
+  - error {parameter : string} - makes an error in the console
+  - time {parameter : number} - changes the time of day in lighting
+  - clearaddons - clears all spawned addons
+  - clearprops - clears all spawned props
+  - clearnpcs - clears all spawned npcs
+  - clearentities - clears all spawned entities
+  - clear - clears addons, props, npcs, and entities
+  - adminize {parameter : user} - gives a user admin (host only)</p>
 
       </div>
       <div class="dark-box">
