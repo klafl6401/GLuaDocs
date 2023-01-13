@@ -154,11 +154,11 @@ text | Adds an error to the console which is red that doesn't begin with "Error:
 
 Adds text to the console with the color depending on the rgb
 
-### ConsoleService:Error(hex)
+### ConsoleService:ColorFromHex(hex)
 
 Parameter | Description
 --------- | -----------
-hex | Adds text to the console with the corrosponding hex value (string)
+hex | Adds text to the console with the corrosponding hex color code (string)
 
 ## CmdLineService (Client Only)
 The CmdLineService is a RemoteEvent responsible for the command line in the console.
