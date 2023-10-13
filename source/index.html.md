@@ -86,6 +86,9 @@ removed for obvious reasons which could be used to destroy the game
 Hook is basically an easy way of doing events and it supports a few custom events
 Hook is a global with only one function which is `Add`
 
+Hook Events being: OnDeath, Hurt, OnSpawn, OnChat, 
+
+
 ```lua
 local HookClass = Hook.Add("OnSpawn", function(player) -- when player is added to the game and returns a hook object class
      print(player.Name)
