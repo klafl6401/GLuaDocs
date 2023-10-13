@@ -317,6 +317,23 @@
           </li>
           <li>
             <a href="#new-built-in-functions" class="toc-h1 toc-link" data-title="New built-in-functions">New built-in-functions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#loadscriptsenv" class="toc-h2 toc-link" data-title="LoadScriptsEnv">LoadScriptsEnv</a>
+                  </li>
+                  <li>
+                    <a href="#foreach-table-callback-index-value-function" class="toc-h2 toc-link" data-title="foreach(table, callback(index, value) : function )">foreach(table, callback(index, value) : function )</a>
+                  </li>
+                  <li>
+                    <a href="#loadconsoleservice" class="toc-h2 toc-link" data-title="LoadConsoleService">LoadConsoleService</a>
+                  </li>
+                  <li>
+                    <a href="#getmoduleservice" class="toc-h2 toc-link" data-title="GetModuleService">GetModuleService</a>
+                  </li>
+                  <li>
+                    <a href="#loadcmdlineservice-client-only" class="toc-h2 toc-link" data-title="LoadCmdLineService (client only)">LoadCmdLineService (client only)</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#removed-keywords-services-and-globals" class="toc-h1 toc-link" data-title="removed keywords, Services, and globals">removed keywords, Services, and globals</a>
@@ -326,9 +343,6 @@
                   </li>
                   <li>
                     <a href="#getfenv" class="toc-h2 toc-link" data-title="getfenv">getfenv</a>
-                  </li>
-                  <li>
-                    <a href="#setfenv" class="toc-h2 toc-link" data-title="setfenv">setfenv</a>
                   </li>
                   <li>
                     <a href="#replicatedstorage" class="toc-h2 toc-link" data-title="ReplicatedStorage">ReplicatedStorage</a>
@@ -383,12 +397,34 @@
 
 </code></pre></div><div class="highlight"><pre class="highlight lua tab-lua"><code> <span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- loads the ModuleService which can be used to act as module scripts</span>
 </code></pre></div>
-<p>GLua has only a couple of built-in-functions such as <code>foreach</code>, <code>GetModuleService</code>, <code>LoadScriptsEnv</code>, <code>LoadCmdLineService</code>, and <code>LoadConsoleService</code></p>
+<p>GLua has only a couple of built-in-functions such as <code>foreach</code>, <code>GetModuleService</code>, <code>LoadScriptsEnv</code>, <code>LoadCmdLineService</code>, and <code>LoadConsoleService</code> albeit they&#39;re very specific.</p>
+<h2 id='loadscriptsenv'>LoadScriptsEnv</h2>
+<p>This will allow the script to use the Luau global <code>script</code>.</p>
+<h2 id='foreach-table-callback-index-value-function'>foreach(table, callback(index, value) : function )</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>table</td>
+<td>the table to loop through</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>loops through specified table and executes callback with the index and value</td>
+</tr>
+</tbody></table>
+<h2 id='loadconsoleservice'>LoadConsoleService</h2>
+<p>This will allow you to use <code>ConsoleService</code></p>
+<h2 id='getmoduleservice'>GetModuleService</h2>
+<p>Returns <code>ModuleService</code></p>
+<h2 id='loadcmdlineservice-client-only'>LoadCmdLineService (client only)</h2>
+<p>Returns &quot;CmdLineService&quot;</p>
 <h1 id='removed-keywords-services-and-globals'>removed keywords, Services, and globals</h1><h2 id='require'>require</h2>
 <p>removed for obvious reasons which could be used to destroy the game</p>
 <h2 id='getfenv'>getfenv</h2>
-<p>removed for obvious reasons which could be used to destroy the game</p>
-<h2 id='setfenv'>setfenv</h2>
 <p>removed for obvious reasons which could be used to destroy the game</p>
 <h2 id='replicatedstorage'>ReplicatedStorage</h2>
 <p>removed because it should only be accessed by the core and mostly it is used by <code>require</code></p>
@@ -407,7 +443,18 @@ Hook is a global with only one function which is <code>Add</code></p>
 <span class="k">end</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">HookClass</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="n">HookClass</span><span class="p">.</span><span class="n">eventtype</span><span class="p">)</span> <span class="c1">-- SUCCESSFUL, OnSpawn</span>
-</code></pre></div><h2 id='moduleservice'>ModuleService</h2>
+</code></pre></div><h2 id='moduleservice'>ModuleService</h2><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- Loads the ModuleService</span>
+
+<span class="n">ModuleService</span><span class="p">:</span><span class="n">Add</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span> <span class="c1">-- Creates the module</span>
+
+<span class="n">ModuleService</span><span class="p">:</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="c1">-- Adds the function</span>
+     <span class="nb">print</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">,</span> <span class="s2">"PrintHi"</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">module</span> <span class="o">=</span> <span class="n">ModuleService</span><span class="p">:</span><span class="n">Get</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span>
+
+<span class="n">module</span><span class="p">.</span><span class="n">PrintHi</span><span class="p">()</span> <span class="c1">-- outputs to hi</span>
+</code></pre></div>
 <p>The ModuleService is a roundabout for module scripts because modulescripts arent supported in my game it currently has a few functions.
 It can be used to communicate through different scripts it can be accessed by using the function <code>GetModuleService()</code></p>
 <h3 id='moduleservice-add-modulename'>ModuleService:Add(modulename)</h3>
@@ -458,18 +505,7 @@ It can be used to communicate through different scripts it can be accessed by us
 <td>The function that is put inside the module</td>
 </tr>
 </tbody></table>
-<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="kd">local</span> <span class="n">ModuleService</span> <span class="o">=</span> <span class="n">GetModuleService</span><span class="p">()</span> <span class="c1">-- Loads the ModuleService</span>
-
-<span class="n">ModuleService</span><span class="p">:</span><span class="n">Add</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span> <span class="c1">-- Creates the module</span>
-
-<span class="n">ModuleService</span><span class="p">:</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="c1">-- Adds the function</span>
-     <span class="nb">print</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
-<span class="k">end</span><span class="p">,</span> <span class="s2">"PrintHi"</span><span class="p">)</span>
-
-<span class="kd">local</span> <span class="n">module</span> <span class="o">=</span> <span class="n">ModuleService</span><span class="p">:</span><span class="n">Get</span><span class="p">(</span><span class="s2">"print_hi"</span><span class="p">)</span>
-
-<span class="n">module</span><span class="p">.</span><span class="n">PrintHi</span><span class="p">()</span> <span class="c1">-- outputs to hi</span>
-</code></pre></div><h2 id='loadscriptenv'>LoadScriptEnv</h2>
+<h2 id='loadscriptenv'>LoadScriptEnv</h2>
 <p>It allows you to use the global <code>script</code> which is where the script is located although advise this instance doesn&#39;t inherit anything from script so you cant disable it.</p>
 <h2 id='consoleservice'>ConsoleService</h2>
 <p>The Service responsible for logging output in the console which can be accessed by pressing \ (back slash)</p>
