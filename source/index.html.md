@@ -38,7 +38,25 @@ Welcome to the official documentation on the "Lua variant" called GLua which is 
  local ModuleService = GetModuleService() -- loads the ModuleService which can be used to act as module scripts
 ```
 
-GLua has only a couple of built-in-functions such as `foreach`, `GetModuleService`, `LoadScriptsEnv`, `LoadCmdLineService`, and `LoadConsoleService`
+GLua has only a couple of built-in-functions such as `foreach`, `GetModuleService`, `LoadScriptsEnv`, `LoadCmdLineService`, and `LoadConsoleService` albeit they're very specific.
+
+## LoadScriptsEnv
+This will allow the script to use the Luau global `script`.
+
+## foreach(table, callback(index, value) : function )
+Parameter | Description
+--------- | -----------
+table | the table to loop through
+callback | loops through specified table and executes callback with the index and value
+
+## LoadConsoleService
+This will allow you to use `ConsoleService`
+
+## GetModuleService
+Returns `ModuleService`
+
+## LoadCmdLineService (client only)
+Returns "CmdLineService"
 
 # removed keywords, Services, and globals
 
@@ -46,9 +64,6 @@ GLua has only a couple of built-in-functions such as `foreach`, `GetModuleServic
 removed for obvious reasons which could be used to destroy the game
 
 ## getfenv
-removed for obvious reasons which could be used to destroy the game
-
-## setfenv
 removed for obvious reasons which could be used to destroy the game
 
 ## ReplicatedStorage
@@ -81,6 +96,20 @@ print(HookClass.value, HookClass.eventtype) -- SUCCESSFUL, OnSpawn
 
 ## ModuleService
 
+```lua
+local ModuleService = GetModuleService() -- Loads the ModuleService
+
+ModuleService:Add("print_hi") -- Creates the module
+
+ModuleService:AddFunction("print_hi", function() -- Adds the function
+     print("hi")
+end, "PrintHi")
+
+local module = ModuleService:Get("print_hi")
+
+module.PrintHi() -- outputs to hi
+```
+
 The ModuleService is a roundabout for module scripts because modulescripts arent supported in my game it currently has a few functions.
 It can be used to communicate through different scripts it can be accessed by using the function `GetModuleService()`
 
@@ -106,19 +135,6 @@ modulename | The module in which the function will be put inside of
 function | The name of the function which will go inside the module
 FunctionName | The function that is put inside the module
 
-```lua
-local ModuleService = GetModuleService() -- Loads the ModuleService
-
-ModuleService:Add("print_hi") -- Creates the module
-
-ModuleService:AddFunction("print_hi", function() -- Adds the function
-     print("hi")
-end, "PrintHi")
-
-local module = ModuleService:Get("print_hi")
-
-module.PrintHi() -- outputs to hi
-```
 
 ## LoadScriptEnv
 It allows you to use the global `script` which is where the script is located although advise this instance doesn't inherit anything from script so you cant disable it.
