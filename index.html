@@ -438,6 +438,8 @@ also it is advised not to use _G in Lua</p>
 <h1 id='functions-globals-and-services'>Functions, globals, and Services</h1><h2 id='hook'>Hook</h2>
 <p>Hook is basically an easy way of doing events and it supports a few custom events
 Hook is a global with only one function which is <code>Add</code></p>
+
+<p>Hook Events being: OnDeath, Hurt, OnSpawn, OnChat, </p>
 <div class="highlight"><pre class="highlight lua tab-lua"><code><span class="kd">local</span> <span class="n">HookClass</span> <span class="o">=</span> <span class="n">Hook</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">"OnSpawn"</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">player</span><span class="p">)</span> <span class="c1">-- when player is added to the game and returns a hook object class</span>
      <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
 <span class="k">end</span><span class="p">)</span>
